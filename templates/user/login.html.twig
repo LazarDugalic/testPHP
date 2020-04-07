@@ -6,18 +6,23 @@
             <div class="col-4"></div>
             <div class="col-4">
                 <h1>Login</h1>
-                <form>
+                {% if message|length > 0 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                <form action="/login.php" method="post">
                     <div class="form-group">
-                        <label for="email-or-nam">Email or name</label>
-                        <input type="text" class="form-control" id="email-or-name" aria-describedby="email-or-nam" placeholder="Enter email or name">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" aria-describedby="password" placeholder="Enter password">
+                        <input type="password" class="form-control" id="password" name="password" aria-describedby="password" placeholder="Enter password">
                     </div>
                     <button type="submit" name="login" class="btn btn-primary">Log In</button>
                 </form>
-                <a href="/registraion.php">Register now!</a>
+                <a href="/registration.php">Register now!</a>
             </div>
             <div class="col-4"></div>
         </div>

@@ -80,4 +80,17 @@ class UserRepository
 
         return $statement->fetch();
     }
+
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function userExists($email)
+    {
+        $statement = $this->db->prepare($this->getUserByEmail);
+        $statement->bindValue(1, $email);
+        $statement->execute();
+
+        return $statement->fetch() ? true : false;
+    }
 }

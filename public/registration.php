@@ -11,27 +11,57 @@ $name = isset($_POST['name']) ? $_POST['name'] : null;
 $password = isset($_POST['password']) ? $_POST['password'] : null;
 $passwordRepeat = isset($_POST['repeat-password']) ? $_POST['repeat-password'] : null;
 
-$message = '';
-
 if (isset($_POST['register'])) {
-    if (!empty($email) && !empty($name) && !empty($password) && !empty($passwordRepeat)) {
-        if ($password === $passwordRepeat) {
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                if ( strlen($password) > 6 ) {
-                    (new UserRepository())->createNewUser($email, $name, $password);
-                    header('Location: index.php');
-                } else {
-                    $message = 'Email must have more than 5 characters !';
-                }
-            } else {
-                $message = 'Invalid email format !';
-            }
-        } else {
-            $message = 'Password do not match !';
-        }
-    } else {
+
+    if (empty($email) && empty($name) && empty($password) && empty($passwordRepeat)) {
         $message = 'All fields must be filled in !';
     }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        isset($message) ? : $message = 'Invalid email format !';
+    }
+
+    $userAlreadyExists = (new UserRepository())->userExists($email);
+    if ($userAlreadyExists) {
+        isset($message) ? : $message = 'User with the same email already exists !';
+    }
+
+    if ($password !== $passwordRepeat) {
+        isset($message) ? : $message = 'Password do not match !';
+    }
+
+    if ( strlen($password) < 6 ) {
+        isset($message) ? : $message = 'Password must have al least 6 characters !';
+    }
+
+    if (!isset($message)) {
+        (new UserRepository())->createNewUser($email, $name, $password);
+        header('location: index.php');
+    }
+
+//    if (!empty($email) && !empty($name) && !empty($password) && !empty($passwordRepeat)) {
+//        $userAlreadyExists = (new UserRepository())->findByEmail($email);
+//        if (empty($userAlreadyExists)) {
+//            if ($password === $passwordRepeat) {
+//                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//                    if ( strlen($password) > 6 ) {
+//                        (new UserRepository())->createNewUser($email, $name, $password);
+//                        header('location: index.php');
+//                    } else {
+//                        $message = 'Password must have more than 5 characters !';
+//                    }
+//                } else {
+//                    $message = 'Invalid email format !';
+//                }
+//            } else {
+//                $message = 'Password do not match !';
+//            }
+//        } else {
+//            $message = 'User with the same email already exists !';
+//        }
+//    } else {
+//        $message = 'All fields must be filled in !';
+//    }
 }
 
 Twig::render('user/registration.html.twig', [
