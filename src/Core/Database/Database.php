@@ -3,6 +3,7 @@
 namespace App;
 
 use PDO;
+use PDOException;
 
 class Database {
     private static $factory;
@@ -31,4 +32,4 @@ class Database {
         }
     }
 }
-?>
+

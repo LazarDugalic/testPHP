@@ -1,15 +1,12 @@
 <?php
-namespace App\Repository;
 
+namespace App\Repository;
 
 use App\Database;
 
 class UserRepository
 {
     private $db;
-    private $insertUser = "INSERT INTO user (email, name, password) VALUES (?, ?, ?)";
-    private $getUserByEmail = "SELECT * FROM user WHERE email = ?";
-    private $getUsersByMatchingParameter = "SELECT * FROM user WHERE email LIKE ? OR name LIKE ?";
 
     public function __construct()
     {
@@ -23,7 +20,7 @@ class UserRepository
      */
     public function createNewUser($email, $name, $password)
     {
-        $statement = $this->db->prepare($this->insertUser);
+        $statement = $this->db->prepare("INSERT INTO user (email, name, password) VALUES (?, ?, ?)");
         $statement->bindValue(1, $email);
         $statement->bindValue(2, $name);
         $statement->bindValue(3, $password);
@@ -37,7 +34,7 @@ class UserRepository
      */
     public function findByEmail($email)
     {
-        $statement = $this->db->prepare($this->getUserByEmail);
+        $statement = $this->db->prepare("SELECT * FROM user WHERE email = ?");
         $statement->bindValue(1, $email);
         $statement->execute();
 
@@ -50,7 +47,7 @@ class UserRepository
      */
     public function userExists($email)
     {
-        $statement = $this->db->prepare($this->getUserByEmail);
+        $statement = $this->db->prepare("SELECT * FROM user WHERE email = ?");
         $statement->bindValue(1, $email);
         $statement->execute();
 
@@ -58,7 +55,7 @@ class UserRepository
     }
 
     public function findByParameter($parameter) {
-        $statement = $this->db->prepare($this->getUsersByMatchingParameter);
+        $statement = $this->db->prepare("SELECT * FROM user WHERE email LIKE ? OR name LIKE ?");
         $statement->bindValue(1, '%'.$parameter.'%');
         $statement->bindValue(2, '%'.$parameter.'%');
         $statement->execute();
