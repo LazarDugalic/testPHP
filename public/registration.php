@@ -1,7 +1,6 @@
 <?php
 
 use App\Core\Twig;
-use App\Entity\User;
 use App\Repository\UserRepository;
 
 require_once __DIR__ . '/../vendor/autoload.php';

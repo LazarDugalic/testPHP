@@ -17,7 +17,7 @@ class UserRepository
     }
 
     /**
-%     * @param $email
+     * @param $email
      * @param $name
      * @param $password
      */
