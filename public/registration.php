@@ -34,7 +34,8 @@ if (isset($_POST['register'])) {
     }
 
     if (!isset($message)) {
-        (new UserRepository())->createNewUser($email, $name, $password);
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        (new UserRepository())->createNewUser($email, $name, $hashedPassword);
         header('location: index.php');
     }
 

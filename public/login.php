@@ -16,7 +16,7 @@ if (isset($_POST['login'])) {
     }
 
     $user = (new UserRepository())->findByEmail($email);
-    if (empty($user) || $password != $user['password']) {
+    if (empty($user) || password_verify($password, $password['password'])) {
         isset($message) ? : $message = 'Bad credentials !';
     }
 
