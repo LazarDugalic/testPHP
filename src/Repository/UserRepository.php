@@ -7,7 +7,7 @@ use App\Database;
 class UserRepository
 {
     private $db;
-    private $insertUser = "INSERT INTO user (email, name, text, status) VALUES (?, ?, ?, 0)";
+    private $insertUser = "INSERT INTO user (email, name, password) VALUES (?, ?, ?)";
     private $deleteUser = "DELETE  FROM user WHERE id = ?";
     private $getUserById = "SELECT * FROM user WHERE id = ?";
     private $getUserByEmail = "SELECT * FROM user WHERE email = ?";
