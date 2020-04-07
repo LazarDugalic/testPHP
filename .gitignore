@@ -1,0 +1,12 @@
+/vendor/
+/package-lock.json
+/composer.lock
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+
+# Composer PHAR
+/composer.phar
+
+# Embedded web-server pid file
+/.idea/

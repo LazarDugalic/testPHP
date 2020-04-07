@@ -21,7 +21,6 @@
     
 ### Install packages
     - $ composer install
-    - $ npm install
     
 ### Apache configuration   
     - $ sudo cp apache2/core.conf /etc/apache2/sites-enabled/core.conf
