@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        {% if session_logged.logged %}
+    <div class="container mt-2">
+        {% if session_logged %}
             <form action="/index.php" method="post">
                 <input type="submit" value="logout" name="logout" class="float-right p-3 bg-white border-0">
             </form>
@@ -13,14 +13,43 @@
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
-                <h1>Home screen</h1>
-                <form action="/search.php" method="get">
+                {% if session_logged.logged %}
+                    <h1>Welcome {{ session_logged.name }}</h1>
+                {% else %}
+                    <h1>Log in to search</h1>
+                {% endif %}
+                {% if message|length > 0 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                <form action="/index.php" method="get">
                     <div class="form-group">
                         <label for="search">Search user</label>
-                        <input type="text" class="form-control" id="search" name="search" aria-describedby="search" placeholder="Search here...">
+                        <input type="text" class="form-control" id="search" name="searchParameter" aria-describedby="search" placeholder="Search here...">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="search" class="btn btn-primary">Submit</button>
                 </form>
+                {% if users %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.name }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
             </div>
             <div class="col-4"></div>
         </div>

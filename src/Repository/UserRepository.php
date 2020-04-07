@@ -8,10 +8,8 @@ class UserRepository
 {
     private $db;
     private $insertUser = "INSERT INTO user (email, name, password) VALUES (?, ?, ?)";
-    private $deleteUser = "DELETE  FROM user WHERE id = ?";
-    private $getUserById = "SELECT * FROM user WHERE id = ?";
     private $getUserByEmail = "SELECT * FROM user WHERE email = ?";
-    private $getAllUsers = "SELECT * FROM user ORDER BY id ASC";
+    private $getUsersByMatchingParameter = "SELECT * FROM user WHERE email LIKE ? OR name LIKE ?";
 
     public function __construct()
     {
@@ -19,18 +17,7 @@ class UserRepository
     }
 
     /**
-     * @return mixed
-     */
-    public function findAll()
-    {
-        $statement = $this->db->prepare($this->getAllUsers);
-        $statement->execute();
-
-        return $statement->fetchAll();
-    }
-
-    /**
-     * @param $email
+%     * @param $email
      * @param $name
      * @param $password
      */
@@ -42,30 +29,6 @@ class UserRepository
         $statement->bindValue(3, $password);
 
         $statement->execute();
-    }
-
-    /**
-     * @param $id
-     */
-    public function deleteUser($id)
-    {
-        $statement = $this->db->prepare($this->deleteUser);
-        $statement->bindValue(1, $id);
-
-        $statement->execute();
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function find($id)
-    {
-        $statement = $this->db->prepare($this->getUserById);
-        $statement->bindValue(1, $id);
-        $statement->execute();
-
-        return $statement->fetch();
     }
 
     /**
@@ -92,5 +55,14 @@ class UserRepository
         $statement->execute();
 
         return $statement->fetch() ? true : false;
+    }
+
+    public function findByParameter($parameter) {
+        $statement = $this->db->prepare($this->getUsersByMatchingParameter);
+        $statement->bindValue(1, '%'.$parameter.'%');
+        $statement->bindValue(2, '%'.$parameter.'%');
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 }
