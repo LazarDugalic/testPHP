@@ -1,5 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>test</h1>
+    <div class="container">
+        <a href="/login.php" class="float-right p-3">Log in</a>
+        <a href="/registration.php" class="float-right p-3">Sign up</a>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <h1>Home screen</h1>
+                <form>
+                    <div class="form-group">
+                        <label for="search">Search user</label>
+                        <input type="text" class="form-control" id="search" aria-describedby="search" placeholder="Type here...">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
 {% endblock %}
