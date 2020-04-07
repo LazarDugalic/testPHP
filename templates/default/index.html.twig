@@ -2,18 +2,23 @@
 
 {% block body %}
     <div class="container">
-        <a href="/login.php" class="float-right p-3">Log in</a>
-        <a href="/registration.php" class="float-right p-3">Sign up</a>
+        {% if session_logged.logged %}
+            <form action="/index.php" method="post">
+                <input type="submit" value="logout" name="logout" class="float-right p-3 bg-white border-0">
+            </form>
+        {% else %}
+            <a href="/login.php" class="float-right p-3">Log in</a>
+            <a href="/registration.php" class="float-right p-3">Sign up</a>
+        {% endif %}
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
                 <h1>Home screen</h1>
-                <form>
+                <form action="/search.php" method="get">
                     <div class="form-group">
                         <label for="search">Search user</label>
-                        <input type="text" class="form-control" id="search" aria-describedby="search" placeholder="Type here...">
+                        <input type="text" class="form-control" id="search" name="search" aria-describedby="search" placeholder="Search here...">
                     </div>
-
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>

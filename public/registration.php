@@ -39,29 +39,6 @@ if (isset($_POST['register'])) {
         header('location: index.php');
     }
 
-//    if (!empty($email) && !empty($name) && !empty($password) && !empty($passwordRepeat)) {
-//        $userAlreadyExists = (new UserRepository())->findByEmail($email);
-//        if (empty($userAlreadyExists)) {
-//            if ($password === $passwordRepeat) {
-//                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//                    if ( strlen($password) > 6 ) {
-//                        (new UserRepository())->createNewUser($email, $name, $password);
-//                        header('location: index.php');
-//                    } else {
-//                        $message = 'Password must have more than 5 characters !';
-//                    }
-//                } else {
-//                    $message = 'Invalid email format !';
-//                }
-//            } else {
-//                $message = 'Password do not match !';
-//            }
-//        } else {
-//            $message = 'User with the same email already exists !';
-//        }
-//    } else {
-//        $message = 'All fields must be filled in !';
-//    }
 }
 
 Twig::render('user/registration.html.twig', [

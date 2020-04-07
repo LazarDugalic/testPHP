@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 use App\Core\Twig;
 use App\Repository\UserRepository;
 
@@ -19,15 +21,12 @@ if (isset($_POST['login'])) {
     }
 
     if (!isset($message)) {
-        session_start();
-
-        $_SESSION["loggedin"] = true;
+        $_SESSION["logged"] = true;
         $_SESSION["id"] = $user['id'];
         $_SESSION["name"] = $user['name'];
 
         header("location: index.php");
     }
-
 }
 
 Twig::render('user/login.html.twig', [
