@@ -1,0 +1,22 @@
+{
+    "name": "Performance",
+    "authors": [
+        {
+            "name": "kule85",
+            "email": "kulence@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "twig/twig": "^2.0",
+      "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.0"
+    }
+}
